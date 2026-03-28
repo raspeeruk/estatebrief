@@ -1,0 +1,23 @@
+Full Name,Role,Team,Line Manager,Work Email,Office
+Sarah Chen,CEO,,,s.chen@acme.com,London HQ
+James Mitchell,CTO,Technology,Sarah Chen,j.mitchell@acme.com,London HQ
+Rebecca Williams,CFO,Finance,Sarah,r.williams@acme.com,London HQ
+David Park,Chief Marketing Officer,Marketing,Sarah Chen,d.park@acme.com,NYC
+Lisa Johnson,VP Eng,Engineering,James Mitchell,l.johnson@acme.com,London HQ
+Mark Thompson,VP of Product,Product,James,m.thompson@acme.com,London HQ
+Anna Rodriguez,Dir Marketing,Marketing,David Park,a.rodriguez@acme.com,NYC
+Tom Clarke,Finance Dir,,Rebecca Williams,t.clarke@acme.com,London HQ
+Sophie Turner,Sr Eng Manager,Engineering,Lisa Johnson,s.turner@acme.com,London HQ
+Ryan O'Brien,Eng Mgr,Engineering,Lisa,r.obrien@acme.com,Berlin
+Kate Morgan,Senior PM,Product,Mark Thompson,k.morgan@acme.com,London HQ
+Chris Evans,PM,Product,Mark,,London HQ
+Emma White,Sr Engineer,Engineering,Sophie Turner,e.white@acme.com,London HQ
+Alex Kumar,SWE,,Sophie,a.kumar@acme.com,London HQ
+Jordan Lee,Software Dev,Eng,Ryan O'Brien,,Berlin
+Sam Foster,Frontend Dev,Engineering,Ryan,s.foster@acme.com,Berlin
+Olivia Martinez,Marketing Mgr,Marketing,Anna,o.martinez@acme.com,NYC
+Noah Garcia,Content Specialist,Marketing,Anna Rodriguez,n.garcia@acme.com,NYC
+Patricia Walsh,Head of HR,HR,,p.walsh@acme.com,London HQ
+Michael Brown,Recruiter,HR,Patricia Walsh,,London HQ
+Jennifer Adams,Sr Designer,Design,Mark Thompson,,London HQ
+Robert Kim,Data Analyst,,,,NYC

@@ -1,0 +1,46 @@
+Employee Name,Job Title,Dept,Mgr,Email,Site
+Victoria Ashworth,CEO,Executive,,v.ashworth@meridian.io,London
+Marcus Webb,Chief Operating Officer,Operations,Victoria Ashworth,m.webb@meridian.io,London
+Fiona Hartley,CFO,,Victoria,f.hartley@meridian.io,London
+Daniel Osei,CTO,Tech,Victoria Ashworth,d.osei@meridian.io,Manchester
+Priya Sharma,Chief People Officer,People,Victoria,p.sharma@meridian.io,London
+"Nadia El-Amin",CMO,Marketing,Victoria Ashworth,n.elamin@meridian.io,NYC
+Tom Brennan,VP Eng,Engineering,Daniel Osei,t.brennan@meridian.io,Manchester
+Claire Dubois,VP of Product,,Daniel,c.dubois@meridian.io,London
+Raj Patel,VP Sales,Sales,,r.patel@meridian.io,NYC
+Suki Watanabe,Sr Director Engineering,Engineering,Tom Brennan,s.watanabe@meridian.io,Manchester
+George Papadopoulos,Director of Engineering,Eng,Tom,g.papadopoulos@meridian.io,Berlin
+Amira Hassan,Dir Product,Product,Claire Dubois,a.hassan@meridian.io,London
+Ben Okonkwo,Sales Director,Sales,Raj Patel,b.okonkwo@meridian.io,NYC
+Lucy Chen,Marketing Director,Marketing,Nadia El-Amin,l.chen@meridian.io,NYC
+Rebecca Torres,Head of Talent,People,Priya Sharma,r.torres@meridian.io,London
+James McAllister,Finance Director,,Fiona Hartley,j.mcallister@meridian.io,London
+Karen Nilsson,Sr Eng Manager,Engineering,Suki Watanabe,k.nilsson@meridian.io,Manchester
+Ollie Blackwood,Eng Mgr,Engineering,Suki Watanabe,o.blackwood@meridian.io,Berlin
+Yuki Tanaka,Senior Product Manager,Product,Amira Hassan,y.tanaka@meridian.io,London
+Liam O'Sullivan,Product Manager,Product,Amira,l.osullivan@meridian.io,London
+Zara Ahmed,Sr Designer,,Claire Dubois,z.ahmed@meridian.io,London
+Dmitri Volkov,Lead Engineer,Engineering,Karen Nilsson,d.volkov@meridian.io,Manchester
+Sophie Chang,Senior Engineer,Eng,Karen,s.chang@meridian.io,Manchester
+Max Hofmann,Software Engineer,Engineering,Ollie Blackwood,m.hofmann@meridian.io,Berlin
+Ines Garcia,SWE,,Ollie Blackwood,,Berlin
+Theo Martinez,Frontend Dev,Engineering,Karen Nilsson,,Manchester
+Paulo Silva,Backend Developer,Engineering,Ollie,p.silva@meridian.io,Berlin
+Hannah Wright,QA Lead,Engineering,George Papadopoulos,,Berlin
+Aisha Kamara,Data Scientist,Data,,a.kamara@meridian.io,London
+Nathan Brooks,Data Analyst,Data,,,London
+Eva Kowalski,ML Engineer,Data,Aisha Kamara,,London
+Oscar Lindqvist,DevOps Engineer,,Tom Brennan,o.lindqvist@meridian.io,Manchester
+Chloe Dubois,Account Executive,Sales,Ben Okonkwo,,NYC
+Marcus Webb Jr,BDR,Sales,Ben,,,NYC
+Fatima Al-Rashid,Content Manager,Marketing,Lucy Chen,f.alrashid@meridian.io,NYC
+Jake Turner,SEO Specialist,Marketing,Lucy,,NYC
+Mei Lin,Growth Manager,,Nadia El-Amin,m.lin@meridian.io,NYC
+Rosa Hernandez,Recruiter,People,Rebecca Torres,,London
+David Kim,Recruiter,HR,Rebecca,d.kim@meridian.io,London
+Sam Okafor,People Partner,,Priya Sharma,s.okafor@meridian.io,London
+Elena Rossi,Senior Accountant,Finance,James McAllister,e.rossi@meridian.io,London
+Callum Fraser,Financial Analyst,Finance,James,,London
+Yusuf Ibrahim,Compliance Manager,,Fiona Hartley,y.ibrahim@meridian.io,London
+Tara O'Brien,EA to CEO,Executive,Victoria Ashworth,,London
+Lena Schulz,Office Manager,Operations,Marcus Webb,,Berlin

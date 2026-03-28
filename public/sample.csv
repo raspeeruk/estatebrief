@@ -1,0 +1,19 @@
+Name,Job Title,Department,Reports To,Email,Location
+Sarah Chen,Chief Executive Officer,,,,London
+James Mitchell,Chief Technology Officer,,Sarah Chen,j.mitchell@acme.com,London
+Rebecca Williams,Chief Financial Officer,,Sarah Chen,r.williams@acme.com,London
+David Park,Chief Marketing Officer,,Sarah Chen,d.park@acme.com,New York
+Lisa Johnson,VP Engineering,,James Mitchell,l.johnson@acme.com,London
+Mark Thompson,VP Product,,James Mitchell,m.thompson@acme.com,London
+Anna Rodriguez,Director of Marketing,,David Park,a.rodriguez@acme.com,New York
+Tom Clarke,Finance Director,,Rebecca Williams,t.clarke@acme.com,London
+Sophie Turner,Sr Engineering Manager,,Lisa Johnson,s.turner@acme.com,London
+Ryan O'Brien,Engineering Manager,,Lisa Johnson,r.obrien@acme.com,Berlin
+Kate Morgan,Senior Product Manager,,Mark Thompson,k.morgan@acme.com,London
+Chris Evans,Product Manager,,Mark Thompson,,London
+Emma White,Senior Engineer,,Sophie Turner,e.white@acme.com,London
+Alex Kumar,Software Engineer,,Sophie Turner,,London
+Jordan Lee,Software Dev,,Ryan O'Brien,,Berlin
+Sam Foster,Frontend Developer,,Ryan O'Brien,s.foster@acme.com,Berlin
+Olivia Martinez,Marketing Manager,,Anna Rodriguez,,New York
+Noah Garcia,Content Specialist,,Anna Rodriguez,n.garcia@acme.com,New York
