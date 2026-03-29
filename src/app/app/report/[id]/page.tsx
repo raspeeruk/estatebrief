@@ -39,7 +39,8 @@ export default function ReportPage() {
   const [portfolio, setPortfolio] = useState<PortfolioDTO | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
-  const [exporting, setExporting] = useState(false)
+  const [exportingPptx, setExportingPptx] = useState(false)
+  const [checkingOut, setCheckingOut] = useState(false)
   const [editingSummary, setEditingSummary] = useState(false)
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
 
@@ -50,6 +51,10 @@ export default function ReportPage() {
         if (res.ok) {
           const data = await res.json()
           setPortfolio(data)
+          // Persist full data to sessionStorage for the success page
+          try {
+            sessionStorage.setItem(`propertybrief_report_${portfolioId}`, JSON.stringify(data))
+          } catch { /* ignore quota errors */ }
         }
       } catch { /* ignore */ } finally { setLoading(false) }
     }
@@ -72,25 +77,53 @@ export default function ReportPage() {
     } catch { /* ignore */ } finally { setSaving(false) }
   }
 
-  const handleExport = async () => {
-    if (!portfolio) return
-    setExporting(true)
+  // Persist latest portfolio edits to sessionStorage before checkout
+  const persistToSession = (p: PortfolioDTO) => {
     try {
+      sessionStorage.setItem(`propertybrief_report_${portfolioId}`, JSON.stringify(p))
+    } catch { /* ignore */ }
+  }
+
+  const handleCheckout = async () => {
+    if (!portfolio) return
+    setCheckingOut(true)
+    try {
+      // Save + persist before redirect so success page can generate downloads
       await savePortfolio()
-      const { generatePortfolioPdf } = await import('@/lib/export/portfolio-pdf-generator')
-      const blob = await generatePortfolioPdf(portfolio)
+      persistToSession(portfolio)
+
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reportId: portfolioId }),
+      })
+      if (!res.ok) throw new Error('Checkout creation failed')
+      const { url } = await res.json()
+      if (url) window.location.href = url
+    } catch (err) {
+      console.error('Checkout failed:', err)
+      alert('Could not start checkout — please try again.')
+    } finally { setCheckingOut(false) }
+  }
+
+  const handleExportPptx = async () => {
+    if (!portfolio) return
+    setExportingPptx(true)
+    try {
+      const { generatePortfolioPptx } = await import('@/lib/export/property-pptx-generator')
+      const blob = await generatePortfolioPptx(portfolio)
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = `${portfolio.ownerName.replace(/[^a-zA-Z0-9]+/g, '-')}-PropertyBrief.pdf`
+      a.download = `${portfolio.ownerName.replace(/[^a-zA-Z0-9]+/g, '-')}-PropertyBrief.pptx`
       document.body.appendChild(a)
       a.click()
       document.body.removeChild(a)
       URL.revokeObjectURL(url)
     } catch (err) {
-      console.error('PDF export failed:', err)
-      alert('PDF export failed — check the console for details')
-    } finally { setExporting(false) }
+      console.error('PPTX export failed:', err)
+      alert('PPTX export failed — check the console for details')
+    } finally { setExportingPptx(false) }
   }
 
   if (loading) {
@@ -125,11 +158,13 @@ export default function ReportPage() {
         </div>
         <div className="flex items-center gap-3">
           <Button variant="secondary" size="sm" onClick={savePortfolio} loading={saving}>Save</Button>
-          <Button size="sm" onClick={handleExport} loading={exporting}>Export PDF</Button>
+          <Button variant="secondary" size="sm" onClick={handleExportPptx} loading={exportingPptx}>
+            Download PPTX
+          </Button>
         </div>
       </div>
 
-      {/* Portfolio summary cards */}
+      {/* Portfolio summary cards — FREE PREVIEW */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         {[
           { label: 'Total Portfolio Value', val: formatGBP(summary.totalPortfolioValue), sub: `${summary.totalProperties} properties` },
@@ -273,14 +308,66 @@ export default function ReportPage() {
         </div>
       </Card>
 
-      {/* Footer export bar */}
+      {/* Download CTA — Pay per download */}
+      <div className="mb-10 bg-[#3D2B1F] rounded-2xl overflow-hidden">
+        {/* Terracotta accent top bar */}
+        <div className="h-1.5 bg-[#7C5C3A]" />
+        <div className="px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <h3 className="font-[family-name:var(--font-heading)] text-2xl text-[#FAF6F0] mb-1">
+              Download Portfolio Report
+            </h3>
+            <p className="text-[#DDD4C5] text-sm mb-3">
+              One-time payment. Instant download. No subscription required.
+            </p>
+            <ul className="space-y-1.5">
+              {[
+                'PDF estate agency brochure (print-ready)',
+                'PowerPoint deck — 6 slides for broker or investor meetings',
+                'AI executive summary + action plan included',
+              ].map(item => (
+                <li key={item} className="flex items-center gap-2 text-sm text-[#DDD4C5]">
+                  <svg className="w-4 h-4 text-[#4A7A52] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="flex flex-col items-center gap-2 flex-shrink-0">
+            <button
+              onClick={handleCheckout}
+              disabled={checkingOut}
+              className="inline-flex items-center gap-2.5 bg-[#7C5C3A] hover:bg-[#664B2E] disabled:opacity-60 text-[#FAF6F0] font-semibold px-7 py-3.5 rounded-xl text-base transition-colors whitespace-nowrap"
+            >
+              {checkingOut ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-[#FAF6F0] border-t-transparent rounded-full animate-spin" />
+                  Redirecting…
+                </>
+              ) : (
+                <>
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  Download PDF + PPTX — £29
+                </>
+              )}
+            </button>
+            <p className="text-xs text-[#7A6A5A]">Secure payment via Stripe</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer bar */}
       <div className="flex items-center justify-between py-6 border-t border-[#DDD4C5]">
         <p className="text-sm text-[#7A6A5A]">
           {summary.totalProperties} properties &middot; {formatGBP(summary.totalPortfolioValue)} total value
         </p>
         <div className="flex items-center gap-3">
           <Button variant="secondary" onClick={savePortfolio} loading={saving}>Save draft</Button>
-          <Button variant="secondary" onClick={handleExport} loading={exporting}>Export PDF</Button>
+          <Button variant="secondary" onClick={handleExportPptx} loading={exportingPptx}>Download PPTX</Button>
         </div>
       </div>
 
