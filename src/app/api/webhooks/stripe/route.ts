@@ -5,7 +5,12 @@ import { createAdminClient } from '@/lib/supabase/admin'
 export const dynamic = 'force-dynamic'
 
 function getStripe() {
-  return new Stripe(process.env.STRIPE_SECRET_KEY || 'placeholder')
+  return new Stripe(process.env.STRIPE_SECRET_KEY!)
+}
+
+function tierFromPriceId(priceId: string | null | undefined): 'pro' | 'agency' {
+  if (priceId === process.env.STRIPE_PRICE_ID_AGENCY) return 'agency'
+  return 'pro'
 }
 
 export async function POST(req: NextRequest) {
@@ -33,12 +38,17 @@ export async function POST(req: NextRequest) {
       const userId = session.metadata?.userId
       if (!userId) break
 
+      // subscription_id is set even during trial
+      const subscriptionId = session.subscription as string | null
+      const plan = session.metadata?.plan ?? 'pro'
+
       await supabase
         .from('profiles')
         .update({
           stripe_customer_id: session.customer as string,
-          stripe_subscription_id: session.subscription as string,
-          subscription_status: 'active',
+          stripe_subscription_id: subscriptionId,
+          subscription_status: 'trial',
+          tier: plan,
           updated_at: new Date().toISOString(),
         })
         .eq('id', userId)
@@ -48,16 +58,21 @@ export async function POST(req: NextRequest) {
     case 'customer.subscription.updated': {
       const sub = event.data.object as Stripe.Subscription
       const customerId = sub.customer as string
+      const priceId = sub.items.data[0]?.price?.id
 
       const status = sub.status === 'active' ? 'active'
+        : sub.status === 'trialing' ? 'trial'
         : sub.status === 'past_due' ? 'past_due'
         : sub.status === 'canceled' ? 'canceled'
         : 'none'
+
+      const tier = tierFromPriceId(priceId)
 
       await supabase
         .from('profiles')
         .update({
           subscription_status: status,
+          tier,
           updated_at: new Date().toISOString(),
         })
         .eq('stripe_customer_id', customerId)
@@ -72,6 +87,7 @@ export async function POST(req: NextRequest) {
         .from('profiles')
         .update({
           subscription_status: 'canceled',
+          tier: 'free',
           stripe_subscription_id: null,
           updated_at: new Date().toISOString(),
         })

@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'No billing account' }, { status: 400 })
   }
 
-  const origin = req.headers.get('origin') || 'https://propertybrief.co.uk'
+  const origin = req.headers.get('origin') || 'https://estatebrief.com'
 
   const session = await stripe.billingPortal.sessions.create({
     customer: profile.stripe_customer_id,
