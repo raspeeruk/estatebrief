@@ -10,5 +10,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/guides/landlord-portfolio-tracker`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/guides/buy-to-let-mortgage-portfolio`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/guides/rental-yield-calculator`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${base}/guides/property-portfolio-tax-guide`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${base}/guides/buy-to-let-roi-guide`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${base}/guides/hmo-portfolio-management`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${base}/guides/refinancing-a-property-portfolio`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${base}/guides`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
   ]
 }
