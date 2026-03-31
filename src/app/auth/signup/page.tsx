@@ -21,7 +21,7 @@ export default function SignupPage() {
       email,
       options: {
         emailRedirectTo: `${window.location.origin}/auth/callback`,
-        data: { company_name: companyName || undefined },
+        data: { company_name: companyName || undefined, source_site: "estatebrief" },
       },
     })
 
