@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import NewsletterSignup from '@/components/NewsletterSignup'
 
 export default function LandingPage() {
   return (
@@ -361,6 +362,9 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="max-w-[1200px] mx-auto px-6 py-12">
         <div className="h-px bg-[#DDD4C5] mb-8" />
+        <div className="mb-10">
+          <NewsletterSignup />
+        </div>
         <div className="flex items-center justify-between">
           <span className="font-[family-name:var(--font-heading)] text-lg text-[#7A6A5A]">PropertyBrief</span>
           <div className="flex items-center gap-6 text-sm text-[#7A6A5A]">
