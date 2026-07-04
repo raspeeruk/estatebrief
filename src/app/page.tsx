@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { NewsletterForm } from '@/components/newsletter-form'
 
 export default function LandingPage() {
   return (
@@ -361,6 +362,13 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="max-w-[1200px] mx-auto px-6 py-12">
         <div className="h-px bg-[#DDD4C5] mb-8" />
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-10">
+          <div>
+            <h3 className="font-[family-name:var(--font-heading)] text-[#3D2B1F] text-lg mb-1">Portfolio insights, monthly</h3>
+            <p className="text-sm text-[#7A6A5A]">One email a month on rents, yields, and running a sharper portfolio. No spam.</p>
+          </div>
+          <NewsletterForm />
+        </div>
         <div className="flex items-center justify-between">
           <span className="font-[family-name:var(--font-heading)] text-lg text-[#7A6A5A]">PropertyBrief</span>
           <div className="flex items-center gap-6 text-sm text-[#7A6A5A]">
