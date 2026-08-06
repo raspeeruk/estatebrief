@@ -44,6 +44,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${gloock.variable} ${bricolageGrotesque.variable} ${spectral.variable}`}>
       <head>
+        <script
+          id="roger-group-consent-default"
+          dangerouslySetInnerHTML={{ __html: "window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){window.dataLayer.push(arguments)};window.gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',functionality_storage:'denied',personalization_storage:'denied',security_storage:'granted',wait_for_update:500});" }}
+        />
         <ConsentScript
           id="roger-group-consent"
           src="https://rogerson-signups.netlify.app/consent-widget.js"
