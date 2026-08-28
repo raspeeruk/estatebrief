@@ -5,10 +5,14 @@
 [build.environment]
   NODE_VERSION = "22"
 
-[[redirects]]
-  from = "/api/checkout"
-  to = "/.netlify/functions/checkout"
-  status = 200
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

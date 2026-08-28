@@ -1,23 +1,22 @@
-import ConsentScript from "next/script";
 import type { Metadata } from 'next'
-import { Gloock, Bricolage_Grotesque, Spectral } from 'next/font/google'
+import { Bricolage_Grotesque, Gloock, Spectral } from 'next/font/google'
 import './globals.css'
 
-const gloock = Gloock({
+const display = Gloock({
   subsets: ['latin'],
-  variable: '--font-heading',
+  variable: '--font-display',
   display: 'swap',
-  weight: ['400'],
+  weight: '400',
 })
 
-const bricolageGrotesque = Bricolage_Grotesque({
+const sans = Bricolage_Grotesque({
   subsets: ['latin'],
-  variable: '--font-body',
+  variable: '--font-sans',
   display: 'swap',
-  weight: ['300', '400', '600'],
+  weight: ['400', '500', '600'],
 })
 
-const spectral = Spectral({
+const figures = Spectral({
   subsets: ['latin'],
   variable: '--font-figures',
   display: 'swap',
@@ -25,48 +24,26 @@ const spectral = Spectral({
 })
 
 export const metadata: Metadata = {
-  title: 'PropertyBrief — Portfolio reports that look like Savills made them',
-  description: 'Upload your property portfolio CSV. AI calculates yield, capital growth, flags underperformers. Get an investor-ready PDF report in minutes.',
+  metadataBase: new URL('https://estatebrief.com'),
+  title: 'EstateBrief.com — Domain available for acquisition',
+  description:
+    'EstateBrief.com is available for acquisition: a concise .com for property reporting, landlord software, valuation workflows or property data.',
+  alternates: { canonical: '/' },
+  robots: { index: true, follow: true },
   openGraph: {
-    title: 'PropertyBrief — Portfolio reports that look like Savills made them',
-    description: 'Upload your property portfolio CSV. AI calculates yield, capital growth, flags underperformers. Get an investor-ready PDF report in minutes.',
+    title: 'EstateBrief.com — Domain available for acquisition',
+    description:
+      'A concise .com for property reporting, landlord software, valuation workflows or property data.',
+    url: '/',
+    siteName: 'EstateBrief.com',
     type: 'website',
   },
 }
 
-const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${gloock.variable} ${bricolageGrotesque.variable} ${spectral.variable}`}>
-      <head>
-        <script
-          id="roger-group-consent-default"
-          dangerouslySetInnerHTML={{ __html: "window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){window.dataLayer.push(arguments)};window.gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',functionality_storage:'denied',personalization_storage:'denied',security_storage:'granted',wait_for_update:500});" }}
-        />
-        <ConsentScript
-          id="roger-group-consent"
-          src="https://rogerson-signups.netlify.app/consent-widget.js"
-          strategy="beforeInteractive"
-          data-brand="PropertyBrief"
-          data-domain="estatebrief.com"
-          data-analytics="true"
-          data-marketing="false"
-        />
-        {GA4_ID && (
-          <>
-            <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`} />
-            <script dangerouslySetInnerHTML={{ __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${GA4_ID}');` }} />
-          </>
-        )}
-      </head>
-      <body className="min-h-screen bg-[var(--color-stone-bg)] text-[var(--color-ink)] antialiased">
-        {children}
-      </body>
+    <html lang="en" className={`${display.variable} ${sans.variable} ${figures.variable}`}>
+      <body>{children}</body>
     </html>
   )
 }
